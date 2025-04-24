@@ -1,0 +1,9 @@
+#icon{
+  width: 650px;
+  height: 500px;
+  opacity: 90%;
+}
+
+#background{
+  background: linear-gradient(145deg, #1fa8c79d 0%, #4ba566 70%)
+}

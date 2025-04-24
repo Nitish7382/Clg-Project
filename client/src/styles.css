@@ -1,0 +1,101 @@
+/* src/styles.css
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url(assets/images/backgroundimage.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.container {
+  text-align: center;
+}
+
+.form-container {
+  background:transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  margin: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input, select, textarea{
+  color: #000;
+}
+
+input, select, button {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 50px;
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+}
+
+button{
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  min-height: 40px;
+  max-width: 250px;
+  justify-content: center;
+}
+
+.Sign{
+  margin-left:80px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.dashboard-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #4CAF50;
+}
+
+h2{
+  color: rgb(3, 238, 255);
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 18px;
+  color: #ffffffa3;
+}
+
+
+
+
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+ */
