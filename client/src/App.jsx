@@ -22,6 +22,7 @@ import ViewAssessments from "./Manager Pages/ViewAssessments";
 import EmployeeProgress from "./Manager Pages/EmployeeProgress";
 import Coursestats from "./Admin Pages/Coursestats";
 
+
 function App() {
   return (
     <Router>
@@ -37,7 +38,7 @@ function App() {
           <Route path="/createCourse" element={<CreateCourse />} />
           <Route path="/createassessment" element={<DynamicForm />} />
           <Route path="/updateassessment" element={<UpdateAssessment />} />
-          <Route path="/coursestats" element={<Coursestats/>}/>
+          <Route path="/coursestats" element={<Coursestats />} />
         </Route>
         <Route element={<ProtectedRoute allowedRole="Manager" />}>
           <Route path="/manager" element={<ManagerPage />} />
