@@ -70,7 +70,7 @@ const Coursestats = () => {
           <h2 className="text-xl font-semibold text-purple-400 mb-4">
             Completion Overview
           </h2>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={325}>
             {" "}
             {/* Increased height */}
             <PieChart>
@@ -80,13 +80,13 @@ const Coursestats = () => {
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                outerRadius={90}
-                innerRadius={60}
+                outerRadius={100}
+                innerRadius={70}
                 fill="#82ca9d"
                 label
                 paddingAngle={5}
                 stroke="#fff"
-                strokeWidth={2}
+                strokeWidth={1} 
               >
                 {pieChartData.map((entry, index) => (
                   <Cell
@@ -97,13 +97,13 @@ const Coursestats = () => {
               </Pie>
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "#333",
+                  backgroundColor: "#fff",
                   border: "none",
                   borderRadius: "10px",
                 }}
               />
               <Legend
-                verticalAlign="top"
+                verticalAlign="bottom"
                 height={36}
                 iconSize={16}
                 wrapperStyle={{ fontSize: "14px", color: "#fff" }}

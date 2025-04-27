@@ -10,7 +10,8 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
-const COLORS = ['#34D399', '#F59E0B'] // Green, Amber
+const COLORS_PROGRESS = ['#34D399', '#F59E0B'] // Green for Completed, Amber for In Progress
+const COLORS_RATINGS = ['#10B981', '#3B82F6', '#F59E0B', '#F97316', '#EF4444'] // Distinct colors for ratings
 
 const EmployeeProgress = () => {
   const [progressData, setProgressData] = useState([])
@@ -42,6 +43,12 @@ const EmployeeProgress = () => {
     },
   ]
 
+  // Prepare rating distribution data
+  const ratingData = [1, 2, 3, 4, 5].map((rating) => ({
+    name: `${rating} Stars`,
+    value: progressData.filter((entry) => entry.rating?.rating === rating).length,
+  }))
+
   if (loading) return <div className="p-4">Loading...</div>
 
   return (
@@ -50,34 +57,63 @@ const EmployeeProgress = () => {
       <div className="p-6 min-h-screen bg-gray-800 text-white">
         <h2 className="text-2xl font-semibold mb-6">Employee Course Progress</h2>
 
-        {/* Pie Chart Section */}
-        <div className="bg-gray-700 p-6 rounded-lg mb-6 shadow-lg">
-          <h3 className="text-xl font-semibold mb-4">Completion Overview</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={pieData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={120}
-                innerRadius={70}
-                fill="#8884d8"
-                label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-              >
-                {pieData.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value) => `${value} courses`} />
-              <Legend verticalAlign="top" height={36} />
-            </PieChart>
-          </ResponsiveContainer>
+        {/* Section with Two Pie Charts Side by Side */}
+        <div className="lg:flex lg:gap-8 mb-6">
+          {/* Progress Overview Pie Chart */}
+          <div className="bg-gray-700 p-6 rounded-lg shadow-lg w-full lg:w-1/2 mb-6 lg:mb-0">
+            <h3 className="text-xl font-semibold mb-4">Completion Overview</h3>
+            <ResponsiveContainer width="100%" height={350}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={120}
+                  innerRadius={80}
+                  fill="#8884d8"
+                  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                >
+                  {pieData.map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS_PROGRESS[index % COLORS_PROGRESS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => `${value} courses`} />
+                <Legend verticalAlign="bottom" height={36} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Employee Ratings Pie Chart */}
+          <div className="bg-gray-700 p-6 rounded-lg shadow-lg w-full lg:w-1/2">
+            <h3 className="text-xl font-semibold mb-4">Employee Ratings</h3>
+            <ResponsiveContainer width="100%" height={350}>
+              <PieChart>
+                <Pie
+                  data={ratingData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={120}
+                  innerRadius={80}
+                  fill="#8884d8"
+                  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                >
+                  {ratingData.map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS_RATINGS[index % COLORS_RATINGS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => `${value} employees`} />
+                <Legend verticalAlign="bottom" height={36} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Table Section */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto mt-6">
           <table className="min-w-full text-sm bg-gray-700 rounded-lg overflow-hidden">
             <thead className="bg-gray-600 text-white">
               <tr>
