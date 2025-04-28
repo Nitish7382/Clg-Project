@@ -21,6 +21,7 @@ import ManagerCourseList from "./Manager Pages/ManagerCourseList";
 import ViewAssessments from "./Manager Pages/ViewAssessments";
 import EmployeeProgress from "./Manager Pages/EmployeeProgress";
 import Coursestats from "./Admin Pages/Coursestats";
+import UpdateManagerProfile from "./Manager Pages/UpdateManagerProfile";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route path="/manager-course-list" element={<ManagerCourseList />} />
           <Route path="/view-assessments" element={<ViewAssessments />} />
           <Route path="/employee-progresses" element={<EmployeeProgress />} />
+          <Route path="/update-profile" element={<UpdateManagerProfile/>}/>
         </Route>
         <Route element={<ProtectedRoute allowedRole="Employee" />}>
           <Route path="/employee" element={<EmployeePage />} />

@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
 import { SiBookstack } from "react-icons/si";
-import { FaUserCheck } from "react-icons/fa";
+import { FaUserCheck, FaUserCircle } from "react-icons/fa";
 import { HiMenuAlt3, HiX } from "react-icons/hi"; // Hamburger & Close icons
+import { getProfile } from "../Api"; // import your getProfile function
 
 const ManagerNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [managerName, setManagerName] = useState("");
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfile();
+        setManagerName(data.Name); // assuming the profile API returns { Name: "Manager Name", ... }
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleLogout = () => {
     console.log("Logging out...");
@@ -23,6 +38,10 @@ const ManagerNavbar = () => {
   const handleEmployeeProgress = () => {
     navigate("/employee-progresses");
     setIsMobileMenuOpen(false);
+  };
+
+  const handleUpdateProfile = () => {
+    navigate("/update-profile");
   };
 
   const isCourseListPage = location.pathname === "/manager-course-list";
@@ -50,7 +69,7 @@ const ManagerNavbar = () => {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-6 relative">
           {!isCourseListPage && (
             <button
               onClick={handleCourseList}
@@ -69,7 +88,22 @@ const ManagerNavbar = () => {
               <span>Employee Progress</span>
             </button>
           )}
-          <span className="text-lg">Hey, Manager!</span>
+
+          <div className="flex items-center justify-between gap-2">
+            {/* Profile Icon (Click to Update Profile) */}
+            <button onClick={handleUpdateProfile} className="text-3xl">
+              <FaUserCircle className="cursor-pointer" />
+            </button>
+
+            {/* Name */}
+            <span className="text-lg">
+              {managerName
+                ? `Hey, ${managerName.split(" ")[0]}!`
+                : "Hey, Manager!"}
+            </span>
+          </div>
+
+          {/* Logout Button */}
           <button
             onClick={handleLogout}
             className="flex items-center gap-2 bg-red-600 px-3 py-2 rounded-lg hover:bg-red-700 transition"

@@ -3,13 +3,10 @@ import axios from "axios"
 import { jwtDecode } from "jwt-decode"
 
 const API_URL = "http://localhost:5000/api"
-// const API_URL1 = "http://localhost:5000/api/auth"
-const API_URL2 = "http://localhost:5000/api/manager"
 const API_URL3 = "http://localhost:5000/api/admin"
 const API_URL4 = "http://localhost:5000/api/courses"
 const API_URL5 = "http://localhost:5000/api/course-assignments"
 const API_URL6 = "http://localhost:5000/api/employees"
-const API_URL7 = "http://localhost:5000/api/course-progress"
 const API_URL8 = "http://localhost:5000/api/assessments"
 const API_URL9 = "http://localhost:5000/api/feedbacks"
 
@@ -56,6 +53,31 @@ export const loginUser = async (email, password) => {
     throw error;
   }
 };
+
+// Get Logged-in User Profile
+export const getProfile = async () => {
+  try {
+    const response = await axiosInstance.get(`${API_URL}/auth/profile`);
+    console.log("Profile Data\n", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    throw error;
+  }
+};
+
+// Update Logged-in User Profile
+export const updateProfile = async (profileData) => {
+  try {
+    const response = await axiosInstance.put(`${API_URL}/auth/update-profile`, profileData);
+    console.log("Profile Updated\n", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    throw error;
+  }
+};
+
 
 
 // Function to retrieve the token from localStorage
