@@ -22,6 +22,8 @@ import ViewAssessments from "./Manager Pages/ViewAssessments";
 import EmployeeProgress from "./Manager Pages/EmployeeProgress";
 import Coursestats from "./Admin Pages/Coursestats";
 import UpdateManagerProfile from "./Manager Pages/UpdateManagerProfile";
+import AdminProfileUpdate from "./Admin Pages/AdminProfileUpdate";
+import EmployeeProfileUpdate from "./Employee Pages/EmployeeProfileUpdate";
 
 
 function App() {
@@ -34,6 +36,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route element={<ProtectedRoute allowedRole="Admin" />}>
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/update-admin-profile" element={<AdminProfileUpdate/>}/>
           <Route path="/courselist" element={<CourseList />} />
           <Route path="/viewRequest" element={<ViewRequest />} />
           <Route path="/createCourse" element={<CreateCourse />} />
@@ -53,6 +56,7 @@ function App() {
           <Route path="/employee" element={<EmployeePage />} />
           <Route path="/takeassessment" element={<TakeAssessment />} />
           <Route path="/givefeedback" element={<GiveFeedback />} />
+          <Route path="/update-employee-profile" element={<EmployeeProfileUpdate/>}/>
         </Route>
       </Routes>
     </Router>

@@ -1,65 +1,146 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../App.css";
 import {
   FaChalkboardTeacher,
   FaUserTie,
-  FaSignOutAlt
-} from "react-icons/fa"; // Import icons
+  FaSignOutAlt,
+  FaUserCircle,
+} from "react-icons/fa";
+import { HiMenuAlt3, HiX } from "react-icons/hi"; // Mobile menu icons
+import { getProfile } from "../Api"; // Make sure you import it!
 
 const AdminNavbar = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
 
-  const handleCourseList = () => navigate("/courselist");
-  const handleCourseStats = () => navigate("/coursestats"); // Navigate to Course Stats page
-  const handleDashboard = () => navigate("/admin"); // Back to Dashboard handler
-  const handleLogout = () => navigate("/");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [adminName, setAdminName] = useState("");
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfile();
+        setAdminName(data.Name); // assuming the API returns { Name: "Admin Name" }
+      } catch (error) {
+        console.error("Failed to fetch admin profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleCourseList = () => {
+    navigate("/courselist");
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleCourseStats = () => {
+    navigate("/coursestats");
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleDashboard = () => {
+    navigate("/admin");
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    navigate("/");
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleUpdateProfile = () => {
+    navigate("/update-admin-profile");
+    setIsMobileMenuOpen(false);
+  };
 
   return (
-    <header className="bg-gradient-to-r from-[#2A0E61] to-[#150d3f] text-white py-4 px-8 shadow-lg flex items-center">
-      {/* Left Section: Logo and Title */}
-      <div onClick={handleDashboard} className="flex items-center space-x-3">
-        <h1
-          className="text-3xl font-bold tracking-wide text-white cursor-pointer"
+    <header className="bg-gradient-to-r from-[#2A0E61] to-[#150d3f] text-white py-4 px-4 md:px-8 shadow-lg">
+      <div className="flex items-center justify-between">
+        {/* Logo */}
+        <div
+          onClick={handleDashboard}
+          className="flex items-center space-x-3 cursor-pointer"
         >
-          Learning Hub
-        </h1>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-wide">
+            Learning Hub
+          </h1>
+        </div>
+
+        {/* Hamburger menu - mobile */}
+        <div className="md:hidden">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? (
+              <HiX className="text-3xl" />
+            ) : (
+              <HiMenuAlt3 className="text-3xl" />
+            )}
+          </button>
+        </div>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-6">
+          <button
+            className="flex items-center gap-2 bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700 transition"
+            onClick={handleCourseList}
+          >
+            <FaChalkboardTeacher /> Course List
+          </button>
+
+          <button
+            className="flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+            onClick={handleCourseStats}
+          >
+            <FaUserTie /> Course Stats
+          </button>
+
+
+          <div className="flex items-center gap-2">
+          <button onClick={handleUpdateProfile} className="text-3xl">
+            <FaUserCircle className="cursor-pointer" />
+          </button>
+          <span className="hidden lg:inline-block text-gray-300 text-lg">
+            {adminName ? `Hey, ${adminName.split(" ")[0]}!` : "Hey, Admin!"}
+          </span>
+          </div>
+
+          <button
+            className="flex items-center gap-2 bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition"
+            onClick={handleLogout}
+          >
+            <FaSignOutAlt /> Logout
+          </button>
+        </div>
       </div>
 
-      {/* Center Section: Navigation Links */}
-      <nav className="flex-1 flex justify-center space-x-6">
-        {/* Add other links if necessary */}
-      </nav>
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden mt-4 flex flex-col gap-3 bg-[#1d1445] p-4 rounded-lg shadow-lg">
+          <button
+            onClick={handleCourseList}
+            className="flex items-center gap-3 bg-purple-600 px-4 py-3 rounded-lg hover:bg-purple-700 transition"
+          >
+            <FaChalkboardTeacher className="text-xl" />
+            <span>Course List</span>
+          </button>
 
-      {/* Right Section: User Greeting & Logout */}
-      <div className="flex items-center space-x-4">
-        <button
-          className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
-          onClick={handleCourseList}
-        >
-          <FaChalkboardTeacher /> Course List
-        </button>
+          <button
+            onClick={handleCourseStats}
+            className="flex items-center gap-3 bg-blue-600 px-4 py-3 rounded-lg hover:bg-blue-700 transition"
+          >
+            <FaUserTie className="text-xl" />
+            <span>Course Stats</span>
+          </button>
 
-        {/* New Course Stats Button */}
-        <button
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-          onClick={handleCourseStats}
-        >
-          <FaUserTie /> Course Stats
-        </button>
-
-        <span className="hidden lg:inline-block text-gray-300 text-lg">
-          Hey, <span className="font-bold text-white">Admin!</span>
-        </span>
-
-        <button
-          className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
-          onClick={handleLogout}
-        >
-          <FaSignOutAlt /> Logout
-        </button>
-      </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 bg-red-600 px-4 py-3 rounded-lg hover:bg-red-700 transition"
+          >
+            <FaSignOutAlt className="text-xl" />
+            <span>Logout</span>
+          </button>
+        </div>
+      )}
     </header>
   );
 };

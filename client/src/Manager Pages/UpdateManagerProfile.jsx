@@ -3,6 +3,8 @@ import { getProfile, updateProfile } from "../Api"; // assuming you have these f
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Eye icons
 import ManagerNavbar from "./ManagerNavbar";
+import Swal from "sweetalert2";
+
 
 const UpdateManagerProfile = () => {
   const [formData, setFormData] = useState({
@@ -52,22 +54,42 @@ const UpdateManagerProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+  
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setLoading(false);
       return;
     }
+  
     try {
       await updateProfile(formData); // Assuming updateProfile accepts the full form data
-      alert("Profile updated successfully!");
-      navigate("/manager"); // Redirect back to dashboard or wherever you want
+  
+      // SweetAlert for success
+      await Swal.fire({
+        icon: "success",
+        title: "Profile Updated!",
+        text: "Your profile has been updated successfully.",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
+      });
+  
+      navigate("/manager"); // Redirect after confirmation
     } catch (error) {
       console.error("Failed to update profile:", error);
-      alert("Failed to update profile. Please try again.");
+  
+      // SweetAlert for error
+      Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: "Something went wrong. Please try again later.",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "OK",
+      });
     }
+    
     setLoading(false);
   };
-
+  
   return (
     <div className="min-h-screen  bg-gray-900">
         <ManagerNavbar/>

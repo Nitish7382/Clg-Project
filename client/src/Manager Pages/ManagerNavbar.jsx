@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
 import { SiBookstack } from "react-icons/si";
 import { FaUserCheck, FaUserCircle } from "react-icons/fa";
-import { HiMenuAlt3, HiX } from "react-icons/hi"; // Hamburger & Close icons
-import { getProfile } from "../Api"; // import your getProfile function
+import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { getProfile } from "../Api";
 
 const ManagerNavbar = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const ManagerNavbar = () => {
     const fetchProfile = async () => {
       try {
         const data = await getProfile();
-        setManagerName(data.Name); // assuming the profile API returns { Name: "Manager Name", ... }
+        setManagerName(data.Name);
       } catch (error) {
         console.error("Failed to fetch profile:", error);
       }
@@ -27,6 +27,7 @@ const ManagerNavbar = () => {
 
   const handleLogout = () => {
     console.log("Logging out...");
+    setIsMobileMenuOpen(false); // Close mobile menu on logout
     navigate("/");
   };
 
@@ -42,6 +43,7 @@ const ManagerNavbar = () => {
 
   const handleUpdateProfile = () => {
     navigate("/update-profile");
+    setIsMobileMenuOpen(false);
   };
 
   const isCourseListPage = location.pathname === "/manager-course-list";
@@ -50,14 +52,18 @@ const ManagerNavbar = () => {
   return (
     <div className="bg-gradient-to-r from-[#2A0E61] to-[#150d3f] text-white px-4 py-3 shadow-lg">
       <div className="flex items-center justify-between">
+        {/* Logo */}
         <h1
-          onClick={() => navigate("/manager")}
+          onClick={() => {
+            navigate("/manager");
+            setIsMobileMenuOpen(false);
+          }}
           className="text-2xl md:text-3xl font-bold cursor-pointer"
         >
           Learning Hub
         </h1>
 
-        {/* Hamburger Menu for Mobile */}
+        {/* Hamburger Menu */}
         <div className="md:hidden">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? (
@@ -68,12 +74,12 @@ const ManagerNavbar = () => {
           </button>
         </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6 relative">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-6">
           {!isCourseListPage && (
             <button
               onClick={handleCourseList}
-              className="flex items-center gap-2 bg-blue-600 px-3 py-2 rounded-lg hover:bg-blue-700 transition"
+              className="flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition"
             >
               <SiBookstack className="text-xl" />
               <span>Course List</span>
@@ -82,31 +88,26 @@ const ManagerNavbar = () => {
           {!isEmployeeProgressPage && (
             <button
               onClick={handleEmployeeProgress}
-              className="flex items-center gap-2 bg-indigo-600 px-3 py-2 rounded-lg hover:bg-indigo-700 transition"
+              className="flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
             >
               <FaUserCheck className="text-xl" />
               <span>Employee Progress</span>
             </button>
           )}
-
-          <div className="flex items-center justify-between gap-2">
-            {/* Profile Icon (Click to Update Profile) */}
+          {/* Profile + Name */}
+          <div className="flex items-center gap-2">
             <button onClick={handleUpdateProfile} className="text-3xl">
               <FaUserCircle className="cursor-pointer" />
             </button>
-
-            {/* Name */}
-            <span className="text-lg">
-              {managerName
-                ? `Hey, ${managerName.split(" ")[0]}!`
-                : "Hey, Manager!"}
+            <span className="text-lg hidden lg:inline-block">
+              {managerName ? `Hey, ${managerName.split(" ")[0]}!` : "Hey, Manager!"}
             </span>
           </div>
 
-          {/* Logout Button */}
+          {/* Logout */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-600 px-3 py-2 rounded-lg hover:bg-red-700 transition"
+            className="flex items-center gap-2 bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition"
           >
             <IoMdLogOut className="text-xl" />
             <span>Logout</span>
@@ -114,13 +115,13 @@ const ManagerNavbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden flex flex-col mt-4 gap-3">
+        <div className="md:hidden mt-4 flex flex-col gap-3 bg-[#1d1445] p-4 rounded-lg shadow-lg">
           {!isCourseListPage && (
             <button
               onClick={handleCourseList}
-              className="flex items-center gap-2 bg-blue-600 px-3 py-2 rounded-lg hover:bg-blue-700 transition"
+              className="flex items-center gap-3 bg-blue-600 px-4 py-3 rounded-lg hover:bg-blue-700 transition"
             >
               <SiBookstack className="text-xl" />
               <span>Course List</span>
@@ -129,15 +130,22 @@ const ManagerNavbar = () => {
           {!isEmployeeProgressPage && (
             <button
               onClick={handleEmployeeProgress}
-              className="flex items-center gap-2 bg-indigo-600 px-3 py-2 rounded-lg hover:bg-indigo-700 transition"
+              className="flex items-center gap-3 bg-indigo-600 px-4 py-3 rounded-lg hover:bg-indigo-700 transition"
             >
               <FaUserCheck className="text-xl" />
               <span>Employee Progress</span>
             </button>
           )}
           <button
+            onClick={handleUpdateProfile}
+            className="flex items-center gap-3 bg-green-600 px-4 py-3 rounded-lg hover:bg-green-700 transition"
+          >
+            <FaUserCircle className="text-xl" />
+            <span>Update Profile</span>
+          </button>
+          <button
             onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-600 px-3 py-2 rounded-lg hover:bg-red-700 transition"
+            className="flex items-center gap-3 bg-red-600 px-4 py-3 rounded-lg hover:bg-red-700 transition"
           >
             <IoMdLogOut className="text-xl" />
             <span>Logout</span>
