@@ -26,8 +26,7 @@ const ManagerNavbar = () => {
   }, []);
 
   const handleLogout = () => {
-    console.log("Logging out...");
-    setIsMobileMenuOpen(false); // Close mobile menu on logout
+    setIsMobileMenuOpen(false);
     navigate("/");
   };
 
@@ -50,20 +49,18 @@ const ManagerNavbar = () => {
   const isEmployeeProgressPage = location.pathname === "/employee-progresses";
 
   return (
-    <div className="bg-gradient-to-r from-sky-400 to-sky-600 text-gray-100 px-4 py-3 shadow-lg">
+    <div className="bg-gradient-to-r from-[#0a0f3c] to-[#1e3a8a] text-white px-4 py-3 shadow-lg">
       <div className="flex items-center justify-between">
-        {/* Logo */}
         <h1
           onClick={() => {
             navigate("/manager");
             setIsMobileMenuOpen(false);
           }}
-          className="text-2xl md:text-3xl font-bold cursor-pointer"
+          className="text-2xl md:text-3xl font-bold cursor-pointer tracking-wide"
         >
-          Learning Hub
+        Learning Hub
         </h1>
 
-        {/* Hamburger Menu */}
         <div className="md:hidden">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? (
@@ -74,12 +71,11 @@ const ManagerNavbar = () => {
           </button>
         </div>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
           {!isCourseListPage && (
             <button
               onClick={handleCourseList}
-              className="flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              className="flex items-center gap-2 bg-[#2563eb] px-4 py-2 rounded-lg hover:bg-[#3b82f6] transition"
             >
               <SiBookstack className="text-xl" />
               <span>Course List</span>
@@ -88,13 +84,12 @@ const ManagerNavbar = () => {
           {!isEmployeeProgressPage && (
             <button
               onClick={handleEmployeeProgress}
-              className="flex items-center gap-2 bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+              className="flex items-center gap-2 bg-[#7c3aed] px-4 py-2 rounded-lg hover:bg-[#8b5cf6] transition"
             >
               <FaUserCheck className="text-xl" />
               <span>Employee Progress</span>
             </button>
           )}
-          {/* Profile + Name */}
           <div className="flex items-center gap-2">
             <button onClick={handleUpdateProfile} className="text-3xl">
               <FaUserCircle className="cursor-pointer" />
@@ -104,10 +99,9 @@ const ManagerNavbar = () => {
             </span>
           </div>
 
-          {/* Logout */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition"
+            className="flex items-center gap-2 bg-[#dc2626] px-4 py-2 rounded-lg hover:bg-[#ef4444] transition"
           >
             <IoMdLogOut className="text-xl" />
             <span>Logout</span>
@@ -115,13 +109,12 @@ const ManagerNavbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 flex flex-col gap-3 bg-[#1d1445] p-4 rounded-lg shadow-lg">
+        <div className="md:hidden mt-4 flex flex-col gap-3 bg-[#0b1121] p-4 rounded-lg shadow-lg">
           {!isCourseListPage && (
             <button
               onClick={handleCourseList}
-              className="flex items-center gap-3 bg-blue-600 px-4 py-3 rounded-lg hover:bg-blue-700 transition"
+              className="flex items-center gap-3 bg-[#2563eb] px-4 py-3 rounded-lg hover:bg-[#3b82f6] transition"
             >
               <SiBookstack className="text-xl" />
               <span>Course List</span>
@@ -130,7 +123,7 @@ const ManagerNavbar = () => {
           {!isEmployeeProgressPage && (
             <button
               onClick={handleEmployeeProgress}
-              className="flex items-center gap-3 bg-indigo-600 px-4 py-3 rounded-lg hover:bg-indigo-700 transition"
+              className="flex items-center gap-3 bg-[#7c3aed] px-4 py-3 rounded-lg hover:bg-[#8b5cf6] transition"
             >
               <FaUserCheck className="text-xl" />
               <span>Employee Progress</span>
@@ -138,14 +131,14 @@ const ManagerNavbar = () => {
           )}
           <button
             onClick={handleUpdateProfile}
-            className="flex items-center gap-3 bg-green-600 px-4 py-3 rounded-lg hover:bg-green-700 transition"
+            className="flex items-center gap-3 bg-[#06b6d4] px-4 py-3 rounded-lg hover:bg-[#22d3ee] transition"
           >
             <FaUserCircle className="text-xl" />
             <span>Update Profile</span>
           </button>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 bg-red-600 px-4 py-3 rounded-lg hover:bg-red-700 transition"
+            className="flex items-center gap-3 bg-[#dc2626] px-4 py-3 rounded-lg hover:bg-[#ef4444] transition"
           >
             <IoMdLogOut className="text-xl" />
             <span>Logout</span>

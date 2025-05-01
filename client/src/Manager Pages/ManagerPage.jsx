@@ -54,7 +54,7 @@ function ManagerPage() {
         icon: "success",
         title: "Request Created!",
         text: "Your request has been submitted successfully.",
-        confirmButtonColor: "#0ea5e9", // sky-500
+        confirmButtonColor: "#0ea5e9",
       });
 
       const updatedRequests = await getManagerRequests();
@@ -72,7 +72,7 @@ function ManagerPage() {
         icon: "error",
         title: "Creation Failed",
         text: "There was an issue submitting your request.",
-        confirmButtonColor: "#dc2626", // red-600
+        confirmButtonColor: "#dc2626",
       });
     }
   };
@@ -86,45 +86,44 @@ function ManagerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e3a8a] text-white">
       <ManagerNavbar />
 
       <div className="px-6 py-8">
-        <h1 className="text-2xl font-bold text-sky-700 mb-6">Manager Dashboard</h1>
+        <h1 className="text-3xl font-bold text-sky-300 mb-6">
+          Manager Dashboard
+        </h1>
 
-        {/* Stats Cards */}
         <div className="flex gap-8 justify-between mb-6 flex-wrap">
-          <div className="flex-1 min-w-[200px] h-24 bg-sky-100 text-sky-800 flex flex-col items-center justify-center rounded-lg shadow hover:bg-sky-200 transition">
+          <div className="flex-1 min-w-[200px] h-24 bg-sky-900/60 text-sky-200 border border-sky-500 flex flex-col items-center justify-center rounded-xl shadow-lg hover:bg-sky-800 transition">
             <p className="text-lg">Total Requests</p>
             <p className="text-2xl font-bold">{totalRequests}</p>
           </div>
 
-          <div className="flex-1 min-w-[200px] h-24 bg-green-100 text-green-800 flex flex-col items-center justify-center rounded-lg shadow hover:bg-green-200 transition">
+          <div className="flex-1 min-w-[200px] h-24 bg-green-900/60 text-green-200 border border-green-500 flex flex-col items-center justify-center rounded-xl shadow-lg hover:bg-green-800 transition">
             <p className="text-lg">Completed Requests</p>
             <p className="text-2xl font-bold">{completedRequests}</p>
           </div>
 
-          <div className="flex-1 min-w-[200px] h-24 bg-yellow-100 text-yellow-800 flex flex-col items-center justify-center rounded-lg shadow hover:bg-yellow-200 transition">
+          <div className="flex-1 min-w-[200px] h-24 bg-yellow-900/60 text-yellow-200 border border-yellow-500 flex flex-col items-center justify-center rounded-xl shadow-lg hover:bg-yellow-800 transition">
             <p className="text-lg">Pending Requests</p>
             <p className="text-2xl font-bold">{pendingRequests}</p>
           </div>
         </div>
 
-        {/* Create Request Button */}
         <div className="flex justify-center mb-6">
           <button
             onClick={handleNewRequest}
-            className="bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded"
+            className="bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-semibold py-2 px-6 rounded shadow"
           >
             Create New Request
           </button>
         </div>
 
-        {/* Requests Table */}
-        <div className="bg-sky-50/50 backdrop-blur-lg border border-sky-200 shadow-lg p-6 rounded-lg overflow-auto">
+        <div className="bg-sky-950/60 backdrop-blur border border-sky-600 shadow-lg p-6 rounded-lg overflow-auto text-sky-200">
           <div className="max-h-[300px] overflow-y-auto">
             <table className="min-w-full text-sm">
-              <thead className="bg-sky-100 text-sky-800 sticky top-0 z-10">
+              <thead className="bg-sky-100 text-sky-900 sticky top-0 z-10">
                 <tr>
                   <th className="py-3 px-4 text-left">Sl No</th>
                   <th className="py-3 px-4 text-left">Training Program</th>
@@ -138,7 +137,7 @@ function ManagerPage() {
                 {requests.map((request, index) => (
                   <tr
                     key={index}
-                    className="border-b border-gray-200 hover:bg-sky-50 transition"
+                    className="border-b border-sky-700 hover:bg-sky-800 hover:backdrop:blur-3xl transition text-white font-semibold"
                   >
                     <td className="py-3 px-4">{index + 1}</td>
                     <td className="py-3 px-4">{request.title}</td>
@@ -159,7 +158,7 @@ function ManagerPage() {
                 ))}
                 {requests.length === 0 && (
                   <tr>
-                    <td colSpan="6" className="text-center py-4 text-gray-500">
+                    <td colSpan="6" className="text-center py-4 text-sky-400">
                       No requests available.
                     </td>
                   </tr>
@@ -170,17 +169,18 @@ function ManagerPage() {
         </div>
       </div>
 
-      {/* View Request Modal */}
       {selectedRequest && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/10 backdrop-blur-sm bg-opacity-70 z-50">
-          <div className="bg-white text-gray-800 p-6 shadow-lg rounded-md w-11/12 md:w-2/3 lg:w-1/2 relative">
+          <div className="bg-sky-900 text-sky-200 p-6 shadow-xl rounded-md w-11/12 md:w-2/3 lg:w-1/2 relative border border-sky-600">
             <button
-              className="absolute top-3 right-3 text-sky-600 hover:text-sky-800 text-2xl"
+              className="absolute top-3 right-3 text-sky-400 hover:text-sky-200 text-2xl"
               onClick={closeCard}
             >
               &times;
             </button>
-            <h2 className="text-xl font-semibold mb-4 text-sky-700">Request Details</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">
+              Request Details
+            </h2>
             <p>
               <strong>Course Title:</strong> {selectedRequest.title}
             </p>
@@ -198,10 +198,10 @@ function ManagerPage() {
               <span
                 className={
                   selectedRequest.status === "Approved"
-                    ? "text-green-700"
+                    ? "text-green-400"
                     : selectedRequest.status === "Pending"
-                    ? "text-yellow-600"
-                    : "text-red-600"
+                    ? "text-yellow-300"
+                    : "text-red-400"
                 }
               >
                 {selectedRequest.status}
@@ -212,8 +212,8 @@ function ManagerPage() {
               <span
                 className={
                   selectedRequest.courseCreated
-                    ? "text-green-700"
-                    : "text-red-600"
+                    ? "text-green-400"
+                    : "text-red-400"
                 }
               >
                 {selectedRequest.courseCreated ? "Yes" : "No"}
@@ -223,16 +223,17 @@ function ManagerPage() {
         </div>
       )}
 
-      {/* Create Request Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/10 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white text-gray-800 p-6 rounded-md shadow-lg w-11/12 md:w-2/3 lg:w-1/2">
-            <h2 className="text-xl font-semibold mb-4 text-sky-700">Create New Request</h2>
+          <div className="bg-sky-900 text-sky-200 p-6 rounded-md shadow-xl w-11/12 md:w-2/3 lg:w-1/2 border border-sky-600">
+            <h2 className="text-xl font-semibold mb-4 text-white">
+              Create New Request
+            </h2>
             <div className="grid gap-4">
               <input
                 type="text"
                 placeholder="Title"
-                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
+                className="bg-white/20 border border-sky-600 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-400 text-white placeholder-white"
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
@@ -240,7 +241,7 @@ function ManagerPage() {
               />
               <textarea
                 placeholder="Description"
-                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
+                className="bg-white/20  border border-sky-600 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-400 text-white placeholder-white"
                 value={formData.description}
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
@@ -249,7 +250,7 @@ function ManagerPage() {
               <input
                 type="text"
                 placeholder="Concepts"
-                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
+                className="bg-white/20  border border-sky-600 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-400 text-white placeholder-white"
                 value={formData.concept}
                 onChange={(e) =>
                   setFormData({ ...formData, concept: e.target.value })
@@ -258,7 +259,7 @@ function ManagerPage() {
               <input
                 type="text"
                 placeholder="Duration"
-                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
+                className="bg-white/20  border border-sky-600 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-400 text-white placeholder-white"
                 value={formData.duration}
                 onChange={(e) =>
                   setFormData({ ...formData, duration: e.target.value })
@@ -267,7 +268,7 @@ function ManagerPage() {
             </div>
             <div className="flex justify-end gap-4 mt-6">
               <button
-                className="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded"
+                className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded"
                 onClick={() => setShowModal(false)}
               >
                 Cancel

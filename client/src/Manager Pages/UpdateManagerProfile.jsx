@@ -86,21 +86,20 @@ const UpdateManagerProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800">
+    <div className="min-h-screen bg-[#0f172a] text-white">
       <ManagerNavbar />
-      <div className="flex items-center justify-center mt-6">
+      <div className="flex items-center justify-center p-6">
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl border border-gray-200"
+          className="bg-[#1E255A] border border-sky-200 shadow-lg rounded-2xl p-8 w-full max-w-4xl"
         >
-          <h2 className="text-2xl font-bold mb-6 text-center text-sky-600">
+          <h2 className="text-2xl font-bold mb-6 text-center text-sky-700">
             Update Profile
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* ID (Read-Only) */}
             <div>
-              <label htmlFor="id" className="block text-sm font-medium mb-1">
+              <label htmlFor="id" className="block text-sm font-medium text-sky-700 mb-1">
                 ID
               </label>
               <input
@@ -108,14 +107,13 @@ const UpdateManagerProfile = () => {
                 id="id"
                 name="id"
                 value={formData.id}
-                className="w-full px-4 py-2 text-sm border rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
                 readOnly
               />
             </div>
 
-            {/* Name */}
             <div>
-              <label htmlFor="Name" className="block text-sm font-medium mb-1">
+              <label htmlFor="Name" className="block text-sm font-medium text-sky-700 mb-1">
                 Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -124,17 +122,13 @@ const UpdateManagerProfile = () => {
                 name="Name"
                 value={formData.Name}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                 required
               />
             </div>
 
-            {/* Designation */}
             <div>
-              <label
-                htmlFor="Designation"
-                className="block text-sm font-medium mb-1"
-              >
+              <label htmlFor="Designation" className="block text-sm font-medium text-sky-700 mb-1">
                 Designation <span className="text-red-500">*</span>
               </label>
               <input
@@ -143,17 +137,13 @@ const UpdateManagerProfile = () => {
                 name="Designation"
                 value={formData.Designation}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                 required
               />
             </div>
 
-            {/* Username */}
             <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium mb-1"
-              >
+              <label htmlFor="username" className="block text-sm font-medium text-sky-700 mb-1">
                 Username <span className="text-red-500">*</span>
               </label>
               <input
@@ -162,17 +152,13 @@ const UpdateManagerProfile = () => {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                 required
               />
             </div>
 
-            {/* Email */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium mb-1"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-sky-700 mb-1">
                 Email <span className="text-red-500">*</span>
               </label>
               <input
@@ -181,17 +167,13 @@ const UpdateManagerProfile = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                 required
               />
             </div>
 
-            {/* Password */}
             <div className="relative">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium mb-1"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-sky-700 mb-1">
                 Password <span className="text-red-500">*</span>
               </label>
               <input
@@ -200,24 +182,20 @@ const UpdateManagerProfile = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-3 top-[35px] text-gray-500"
+                className="absolute right-3 top-[35px] text-white"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
 
-            {/* Confirm Password */}
             <div className="relative">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium mb-1"
-              >
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-sky-700 mb-1">
                 Confirm Password <span className="text-red-500">*</span>
               </label>
               <input
@@ -226,23 +204,21 @@ const UpdateManagerProfile = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
-                className="absolute right-3 top-[35px] text-gray-500"
+                className="absolute right-3 top-[35px] text-white"
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
           </div>
 
-          {/* Error Message */}
           {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
 
-          {/* Submit Button */}
           <div className="mt-6">
             <button
               type="submit"

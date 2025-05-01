@@ -115,7 +115,7 @@ const AssignEmployeeModal = ({ isOpen, onClose, courseId }) => {
           <div className="relative">
             <button
               onClick={toggleDropdown}
-              className="w-full p-2 border border-gray-300 rounded bg-gray-50 text-left hover:bg-gray-100"
+              className="w-full p-2 border border-gray-300 rounded bg-gray-50 text-left text-black hover:bg-gray-100"
             >
               {dropdownOpen ? "Close Employee List" : "Select Employees"}
             </button>

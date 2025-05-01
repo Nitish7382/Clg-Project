@@ -11,15 +11,7 @@ import {
 } from 'recharts'
 
 const COLORS_PROGRESS = ['#14b8a6', '#f97316'] // Teal for Completed, Orange for In Progress
-
-const COLORS_RATINGS = [
-  '#ef4444', // 1 Star - Red
-  '#f97316', // 2 Stars - Orange
-  '#eab308', // 3 Stars - Yellow
-  '#22c55e', // 4 Stars - Green
-  '#3b82f6', // 5 Stars - Blue
-]
-
+const COLORS_RATINGS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6']
 
 const EmployeeProgress = () => {
   const [progressData, setProgressData] = useState([])
@@ -56,18 +48,18 @@ const EmployeeProgress = () => {
     value: progressData.filter((entry) => entry.rating?.rating === rating).length,
   }))
 
-  if (loading) return <div className="p-4">Loading...</div>
+  if (loading) return <div className="p-4 text-white">Loading...</div>
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white">
       <ManagerNavbar />
-      <div className="p-6 min-h-screen bg-white text-gray-800">
-        <h2 className="text-2xl font-semibold mb-6 text-sky-700">Employee Course Progress</h2>
+      <div className="p-6">
+        <h2 className="text-3xl font-semibold mb-6 text-cyan-400">Employee Course Progress</h2>
 
         <div className="lg:flex lg:gap-8 mb-6">
           {/* Completion Pie Chart */}
-          <div className="bg-sky-50 border border-sky-200 p-6 rounded-lg shadow w-full lg:w-1/2 mb-6 lg:mb-0">
-            <h3 className="text-xl font-semibold text-sky-700 mb-4">Completion Overview</h3>
+          <div className="bg-[#1e293b] border border-cyan-800 p-6 rounded-lg shadow w-full lg:w-1/2 mb-6 lg:mb-0">
+            <h3 className="text-xl font-semibold text-cyan-300 mb-4">Completion Overview</h3>
             <ResponsiveContainer width="100%" height={350}>
               <PieChart>
                 <Pie
@@ -84,15 +76,15 @@ const EmployeeProgress = () => {
                     <Cell key={`cell-${index}`} fill={COLORS_PROGRESS[index % COLORS_PROGRESS.length]} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `${value} courses`} />
+                <Tooltip contentStyle={{ backgroundColor: '#334155', color: 'white' }} formatter={(value) => `${value} courses`} />
                 <Legend verticalAlign="bottom" height={36} />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
           {/* Ratings Pie Chart */}
-          <div className="bg-sky-50 border border-sky-200 p-6 rounded-lg shadow w-full lg:w-1/2">
-            <h3 className="text-xl font-semibold text-sky-700 mb-4">Employee Ratings</h3>
+          <div className="bg-[#1e293b] border border-cyan-800 p-6 rounded-lg shadow w-full lg:w-1/2">
+            <h3 className="text-xl font-semibold text-cyan-300 mb-4">Employee Ratings</h3>
             <ResponsiveContainer width="100%" height={350}>
               <PieChart>
                 <Pie
@@ -106,10 +98,10 @@ const EmployeeProgress = () => {
                   label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                 >
                   {ratingData.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS_RATINGS[index % COLORS_RATINGS.length]} />
+                    <Cell key={`cell-rating-${index}`} fill={COLORS_RATINGS[index % COLORS_RATINGS.length]} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `${value} employees`} />
+                <Tooltip contentStyle={{ backgroundColor: '#334155', color: 'white' }} formatter={(value) => `${value} employees`} />
                 <Legend verticalAlign="bottom" height={36} />
               </PieChart>
             </ResponsiveContainer>
@@ -118,8 +110,8 @@ const EmployeeProgress = () => {
 
         {/* Progress Table */}
         <div className="overflow-x-auto mt-6">
-          <table className="min-w-full text-sm bg-white border border-sky-200 rounded-lg overflow-hidden">
-            <thead className="bg-sky-100 text-sky-800">
+          <table className="min-w-full text-sm bg-[#0f172a] border border-cyan-800 rounded-lg overflow-hidden text-white">
+            <thead className="bg-cyan-900 text-cyan-100">
               <tr>
                 <th className="p-3 text-left">Course</th>
                 <th className="p-3 text-left">Employee</th>
@@ -132,12 +124,12 @@ const EmployeeProgress = () => {
             </thead>
             <tbody>
               {progressData.map((entry, index) => (
-                <tr key={index} className="border-b border-sky-100 hover:bg-sky-50">
+                <tr key={index} className="border-b border-cyan-800 hover:bg-cyan-900">
                   <td className="p-3">{entry.course.title}</td>
                   <td className="p-3">{entry.employee.Name} ({entry.employee.Designation})</td>
                   <td className="p-3">{entry.employee.email}</td>
                   <td className="p-3">{entry.progress}%</td>
-                  <td className={`p-3 font-medium ${entry.isCompleted ? 'text-green-600' : 'text-yellow-600'}`}>
+                  <td className={`p-3 font-medium ${entry.isCompleted ? 'text-green-400' : 'text-yellow-300'}`}>
                     {entry.isCompleted ? 'Completed' : 'In Progress'}
                   </td>
                   <td className="p-3">
