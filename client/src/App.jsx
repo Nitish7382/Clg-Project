@@ -7,7 +7,6 @@ import SignUp from "./SignUp";
 import AdminPage from "./Admin Pages/Admin";
 import EmployeePage from "./Employee Pages/EmployeePage";
 import ManagerPage from "./Manager Pages/ManagerPage";
-import Managerrequest from "./Manager Pages/Managerrequest";
 import ProtectedRoute from "./ProtectedRoute";
 import Forbidden from "./Forbidden";
 import CourseList from "./Admin Pages/CourseList";
@@ -46,7 +45,6 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute allowedRole="Manager" />}>
           <Route path="/manager" element={<ManagerPage />} />
-          <Route path="/newrequest" element={<Managerrequest />} />
           <Route path="/manager-course-list" element={<ManagerCourseList />} />
           <Route path="/view-assessments" element={<ViewAssessments />} />
           <Route path="/employee-progresses" element={<EmployeeProgress />} />
