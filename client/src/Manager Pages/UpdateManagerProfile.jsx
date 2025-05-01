@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getProfile, updateProfile } from "../Api"; // assuming you have these functions
+import { getProfile, updateProfile } from "../Api";
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Eye icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ManagerNavbar from "./ManagerNavbar";
 import Swal from "sweetalert2";
-
 
 const UpdateManagerProfile = () => {
   const [formData, setFormData] = useState({
@@ -14,12 +13,12 @@ const UpdateManagerProfile = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    id: "", // Added ID field
+    id: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,9 +30,9 @@ const UpdateManagerProfile = () => {
           Designation: data.Designation || "",
           username: data.username || "",
           email: data.email || "",
-          password: "", // Keep password blank for security
-          confirmPassword: "", // Keep confirmPassword blank
-          id: data.ID || "", // Set ID from API response
+          password: "",
+          confirmPassword: "",
+          id: data.ID || "",
         });
       } catch (error) {
         console.error("Failed to fetch profile:", error);
@@ -54,195 +53,206 @@ const UpdateManagerProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setLoading(false);
       return;
     }
-  
+
     try {
-      await updateProfile(formData); // Assuming updateProfile accepts the full form data
-  
-      // SweetAlert for success
+      await updateProfile(formData);
       await Swal.fire({
         icon: "success",
         title: "Profile Updated!",
         text: "Your profile has been updated successfully.",
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#0ea5e9",
         confirmButtonText: "OK",
       });
-  
-      navigate("/manager"); // Redirect after confirmation
+
+      navigate("/manager");
     } catch (error) {
       console.error("Failed to update profile:", error);
-  
-      // SweetAlert for error
       Swal.fire({
         icon: "error",
         title: "Update Failed",
         text: "Something went wrong. Please try again later.",
-        confirmButtonColor: "#d33",
+        confirmButtonColor: "#ef4444",
         confirmButtonText: "OK",
       });
     }
-    
+
     setLoading(false);
   };
-  
+
   return (
-    <div className="min-h-screen  bg-gray-900">
-        <ManagerNavbar/>
-        <div className="flex items-center justify-center mt-3">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 text-white shadow-md rounded-lg p-4 w-full max-w-sm"
-      >
-        <h2 className="text-xl font-semibold mb-4 text-center">Update Profile</h2>
-
-        {/* ID Input */}
-        <div className="mb-3">
-          <label htmlFor="id" className="block text-gray-300 text-sm font-medium mb-1">
-            ID
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              id="id"
-              name="id"
-              value={formData.id}
-              className="w-full px-3 py-2 text-sm border rounded-lg bg-gray-700 text-white opacity-70 cursor-not-allowed"
-              readOnly
-            />
-          </div>
-        </div>
-
-        {/* Name Input */}
-        <div className="mb-3">
-          <label htmlFor="Name" className="block text-gray-300 text-sm font-medium mb-1">
-            Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            id="Name"
-            name="Name"
-            value={formData.Name}
-            onChange={handleChange}
-            className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white"
-            required
-          />
-        </div>
-
-        {/* Designation Input */}
-        <div className="mb-3">
-          <label htmlFor="Designation" className="block text-gray-300 text-sm font-medium mb-1">
-            Designation <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            id="Designation"
-            name="Designation"
-            value={formData.Designation}
-            onChange={handleChange}
-            className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white"
-            required
-          />
-        </div>
-
-        {/* Username Input */}
-        <div className="mb-3">
-          <label htmlFor="username" className="block text-gray-300 text-sm font-medium mb-1">
-            Username <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white"
-            required
-          />
-        </div>
-
-        {/* Email Input */}
-        <div className="mb-3">
-          <label htmlFor="email" className="block text-gray-300 text-sm font-medium mb-1">
-            Email <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white"
-            required
-          />
-        </div>
-
-        {/* Password Input */}
-        <div className="mb-3 relative">
-          <label htmlFor="password" className="block text-gray-300 text-sm font-medium mb-1">
-            Password <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white"
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          </div>
-        </div>
-
-        {/* Confirm Password Input */}
-        <div className="mb-3 relative">
-          <label htmlFor="confirmPassword" className="block text-gray-300 text-sm font-medium mb-1">
-            Confirm Password <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-700 text-white"
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setShowConfirmPassword((prev) => !prev)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-            >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          </div>
-        </div>
-
-        {/* Error Message */}
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transition"
+    <div className="min-h-screen bg-white text-gray-800">
+      <ManagerNavbar />
+      <div className="flex items-center justify-center mt-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl border border-gray-200"
         >
-          {loading ? "Updating..." : "Update Profile"}
-        </button>
-      </form>
+          <h2 className="text-2xl font-bold mb-6 text-center text-sky-600">
+            Update Profile
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* ID (Read-Only) */}
+            <div>
+              <label htmlFor="id" className="block text-sm font-medium mb-1">
+                ID
+              </label>
+              <input
+                type="text"
+                id="id"
+                name="id"
+                value={formData.id}
+                className="w-full px-4 py-2 text-sm border rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
+                readOnly
+              />
+            </div>
+
+            {/* Name */}
+            <div>
+              <label htmlFor="Name" className="block text-sm font-medium mb-1">
+                Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="Name"
+                name="Name"
+                value={formData.Name}
+                onChange={handleChange}
+                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                required
+              />
+            </div>
+
+            {/* Designation */}
+            <div>
+              <label
+                htmlFor="Designation"
+                className="block text-sm font-medium mb-1"
+              >
+                Designation <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="Designation"
+                name="Designation"
+                value={formData.Designation}
+                onChange={handleChange}
+                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                required
+              />
+            </div>
+
+            {/* Username */}
+            <div>
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium mb-1"
+              >
+                Username <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                required
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium mb-1"
+              >
+                Email <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                required
+              />
+            </div>
+
+            {/* Password */}
+            <div className="relative">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium mb-1"
+              >
+                Password <span className="text-red-500">*</span>
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-[35px] text-gray-500"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+
+            {/* Confirm Password */}
+            <div className="relative">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium mb-1"
+              >
+                Confirm Password <span className="text-red-500">*</span>
+              </label>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                className="absolute right-3 top-[35px] text-gray-500"
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          {/* Error Message */}
+          {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+
+          {/* Submit Button */}
+          <div className="mt-6">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 rounded-lg transition"
+            >
+              {loading ? "Updating..." : "Update Profile"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

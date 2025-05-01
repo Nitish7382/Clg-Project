@@ -50,7 +50,7 @@ const ManagerNavbar = () => {
   const isEmployeeProgressPage = location.pathname === "/employee-progresses";
 
   return (
-    <div className="bg-gradient-to-r from-[#2A0E61] to-[#150d3f] text-white px-4 py-3 shadow-lg">
+    <div className="bg-gradient-to-r from-sky-400 to-sky-600 text-gray-100 px-4 py-3 shadow-lg">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <h1
@@ -99,7 +99,7 @@ const ManagerNavbar = () => {
             <button onClick={handleUpdateProfile} className="text-3xl">
               <FaUserCircle className="cursor-pointer" />
             </button>
-            <span className="text-lg hidden lg:inline-block">
+            <span className="text-lg hidden lg:inline-block font-semibold">
               {managerName ? `Hey, ${managerName.split(" ")[0]}!` : "Hey, Manager!"}
             </span>
           </div>

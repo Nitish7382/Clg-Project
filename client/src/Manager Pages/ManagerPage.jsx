@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getManagerRequests, createRequest } from "../Api";
 import ManagerNavbar from "./ManagerNavbar";
-import Swal from "sweetalert2"; // <-- Add this line
+import Swal from "sweetalert2";
 
 function ManagerPage() {
   const [requests, setRequests] = useState([]);
@@ -54,14 +54,14 @@ function ManagerPage() {
         icon: "success",
         title: "Request Created!",
         text: "Your request has been submitted successfully.",
-        confirmButtonColor: "#22c55e", // Tailwind green-600
+        confirmButtonColor: "#0ea5e9", // sky-500
       });
 
-      const updatedRequests = await getManagerRequests(); // <-- fixed: you had `getRequests()` instead
+      const updatedRequests = await getManagerRequests();
       setRequests(updatedRequests);
       setTotalRequests(updatedRequests.length);
       setCompletedRequests(
-        updatedRequests.filter((r) => r.status === "Completed").length
+        updatedRequests.filter((r) => r.status === "Approved").length
       );
       setPendingRequests(
         updatedRequests.filter((r) => r.status === "Pending").length
@@ -72,7 +72,7 @@ function ManagerPage() {
         icon: "error",
         title: "Creation Failed",
         text: "There was an issue submitting your request.",
-        confirmButtonColor: "#dc2626", // Tailwind red-600
+        confirmButtonColor: "#dc2626", // red-600
       });
     }
   };
@@ -86,23 +86,25 @@ function ManagerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-gray-800">
       <ManagerNavbar />
 
       <div className="px-6 py-8">
+        <h1 className="text-2xl font-bold text-sky-700 mb-6">Manager Dashboard</h1>
+
         {/* Stats Cards */}
         <div className="flex gap-8 justify-between mb-6 flex-wrap">
-          <div className="flex-1 min-w-[200px] h-24 bg-blue-600 flex flex-col items-center justify-center rounded-lg shadow hover:bg-blue-700 transition">
+          <div className="flex-1 min-w-[200px] h-24 bg-sky-100 text-sky-800 flex flex-col items-center justify-center rounded-lg shadow hover:bg-sky-200 transition">
             <p className="text-lg">Total Requests</p>
             <p className="text-2xl font-bold">{totalRequests}</p>
           </div>
 
-          <div className="flex-1 min-w-[200px] h-24 bg-purple-600 flex flex-col items-center justify-center rounded-lg shadow hover:bg-purple-700 transition">
+          <div className="flex-1 min-w-[200px] h-24 bg-green-100 text-green-800 flex flex-col items-center justify-center rounded-lg shadow hover:bg-green-200 transition">
             <p className="text-lg">Completed Requests</p>
             <p className="text-2xl font-bold">{completedRequests}</p>
           </div>
 
-          <div className="flex-1 min-w-[200px] h-24 bg-yellow-600 flex flex-col items-center justify-center rounded-lg shadow hover:bg-yellow-700 transition">
+          <div className="flex-1 min-w-[200px] h-24 bg-yellow-100 text-yellow-800 flex flex-col items-center justify-center rounded-lg shadow hover:bg-yellow-200 transition">
             <p className="text-lg">Pending Requests</p>
             <p className="text-2xl font-bold">{pendingRequests}</p>
           </div>
@@ -112,23 +114,23 @@ function ManagerPage() {
         <div className="flex justify-center mb-6">
           <button
             onClick={handleNewRequest}
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
+            className="bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded"
           >
             Create New Request
           </button>
         </div>
 
         {/* Requests Table */}
-        <div className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg p-6 rounded-lg overflow-auto">
+        <div className="bg-sky-50/50 backdrop-blur-lg border border-sky-200 shadow-lg p-6 rounded-lg overflow-auto">
           <div className="max-h-[300px] overflow-y-auto">
             <table className="min-w-full text-sm">
-              <thead className="bg-gray-400 text-black sticky top-0 z-10">
+              <thead className="bg-sky-100 text-sky-800 sticky top-0 z-10">
                 <tr>
                   <th className="py-3 px-4 text-left">Sl No</th>
                   <th className="py-3 px-4 text-left">Training Program</th>
                   <th className="py-3 px-4 text-left">Duration</th>
                   <th className="py-3 px-4 text-left">Status</th>
-                  <th className="py-3 px-4 text-left">Course created</th>
+                  <th className="py-3 px-4 text-left">Course Created</th>
                   <th className="py-3 px-4 text-left">Details</th>
                 </tr>
               </thead>
@@ -136,7 +138,7 @@ function ManagerPage() {
                 {requests.map((request, index) => (
                   <tr
                     key={index}
-                    className="border-b border-white/20 hover:bg-white/10 transition"
+                    className="border-b border-gray-200 hover:bg-sky-50 transition"
                   >
                     <td className="py-3 px-4">{index + 1}</td>
                     <td className="py-3 px-4">{request.title}</td>
@@ -148,7 +150,7 @@ function ManagerPage() {
                     <td className="py-3 px-4">
                       <button
                         onClick={() => handleViewRequest(request)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+                        className="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1 rounded"
                       >
                         View
                       </button>
@@ -157,7 +159,7 @@ function ManagerPage() {
                 ))}
                 {requests.length === 0 && (
                   <tr>
-                    <td colSpan="6" className="text-center py-4 text-gray-300">
+                    <td colSpan="6" className="text-center py-4 text-gray-500">
                       No requests available.
                     </td>
                   </tr>
@@ -170,15 +172,15 @@ function ManagerPage() {
 
       {/* View Request Modal */}
       {selectedRequest && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm bg-opacity-70 z-50">
-          <div className="bg-white text-black p-6 shadow-lg rounded-md w-11/12 md:w-2/3 lg:w-1/2 relative">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/10 backdrop-blur-sm bg-opacity-70 z-50">
+          <div className="bg-white text-gray-800 p-6 shadow-lg rounded-md w-11/12 md:w-2/3 lg:w-1/2 relative">
             <button
-              className="absolute top-3 right-3 text-gray-600 hover:text-gray-800 text-2xl"
+              className="absolute top-3 right-3 text-sky-600 hover:text-sky-800 text-2xl"
               onClick={closeCard}
             >
               &times;
             </button>
-            <h2 className="text-xl font-semibold mb-4">Request Details</h2>
+            <h2 className="text-xl font-semibold mb-4 text-sky-700">Request Details</h2>
             <p>
               <strong>Course Title:</strong> {selectedRequest.title}
             </p>
@@ -196,22 +198,21 @@ function ManagerPage() {
               <span
                 className={
                   selectedRequest.status === "Approved"
-                    ? "text-green-600"
+                    ? "text-green-700"
                     : selectedRequest.status === "Pending"
-                    ? "text-purple-600"
+                    ? "text-yellow-600"
                     : "text-red-600"
                 }
               >
                 {selectedRequest.status}
               </span>
             </p>
-
             <p>
               <strong>Course Created:</strong>{" "}
               <span
                 className={
                   selectedRequest.courseCreated
-                    ? "text-green-600"
+                    ? "text-green-700"
                     : "text-red-600"
                 }
               >
@@ -221,15 +222,17 @@ function ManagerPage() {
           </div>
         </div>
       )}
+
+      {/* Create Request Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-white/10 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white text-black p-6 rounded-md shadow-lg w-11/12 md:w-2/3 lg:w-1/2">
-            <h2 className="text-xl font-semibold mb-4">Create New Request</h2>
+        <div className="fixed inset-0 bg-black/10 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white text-gray-800 p-6 rounded-md shadow-lg w-11/12 md:w-2/3 lg:w-1/2">
+            <h2 className="text-xl font-semibold mb-4 text-sky-700">Create New Request</h2>
             <div className="grid gap-4">
               <input
                 type="text"
                 placeholder="Title"
-                className="border p-2 rounded"
+                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
@@ -237,7 +240,7 @@ function ManagerPage() {
               />
               <textarea
                 placeholder="Description"
-                className="border p-2 rounded"
+                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
                 value={formData.description}
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
@@ -246,7 +249,7 @@ function ManagerPage() {
               <input
                 type="text"
                 placeholder="Concepts"
-                className="border p-2 rounded"
+                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
                 value={formData.concept}
                 onChange={(e) =>
                   setFormData({ ...formData, concept: e.target.value })
@@ -255,7 +258,7 @@ function ManagerPage() {
               <input
                 type="text"
                 placeholder="Duration"
-                className="border p-2 rounded"
+                className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-sky-500"
                 value={formData.duration}
                 onChange={(e) =>
                   setFormData({ ...formData, duration: e.target.value })
@@ -270,7 +273,7 @@ function ManagerPage() {
                 Cancel
               </button>
               <button
-                className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
+                className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded"
                 onClick={handleSubmit}
               >
                 Submit

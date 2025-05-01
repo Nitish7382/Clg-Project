@@ -32,20 +32,20 @@ const ReviewModal = ({ isOpen, onClose, ratings }) => {
     });
 
   return (
-    <div className="fixed inset-0 bg-white/20 bg-opacity-50 flex justify-center items-center z-50 p-4">
+    <div className="fixed inset-0 bg-white/20 backdrop-blur-sm bg-opacity-50 flex justify-center items-center z-50 p-4">
       <div
         ref={modalRef}
-        className="bg-gray-800 rounded-xl p-6 w-full max-w-lg shadow-xl relative"
+        className="bg-white rounded-xl p-6 w-full max-w-lg shadow-xl relative"
       >
         {/* X Close Icon */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-white text-2xl hover:text-red-400 transition"
+          className="absolute top-3 right-3 text-black text-2xl hover:text-red-400 transition"
         >
           <HiX />
         </button>
 
-        <h2 className="text-2xl font-bold mb-4 text-white">Course Reviews</h2>
+        <h2 className="text-2xl font-bold mb-4 text-black">Course Reviews</h2>
 
         <div className={`space-y-4 ${ratings.length > 3 ? "overflow-y-scroll max-h-96 pr-2" : ""} custom-scrollbar`}>
           {ratings.length === 0 ? (
@@ -61,13 +61,13 @@ const ReviewModal = ({ isOpen, onClose, ratings }) => {
                 {/* Review Content */}
                 <div className="flex-1">
                   <div className="flex justify-between items-center">
-                    <p className="font-semibold text-white">
+                    <p className="font-semibold text-black">
                       {r.employeeId?.Name || "Anonymous"}
                     </p>
                     <div className="flex">{renderStars(r.rating)}</div>
                   </div>
-                  <p className="text-white mt-1">{r.review}</p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-black mt-1">{r.review}</p>
+                  <p className="text-xs text-gray-600 mt-1">
                     {new Date(r.createdAt).toLocaleString()}
                   </p>
                 </div>

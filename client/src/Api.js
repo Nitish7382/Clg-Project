@@ -3,12 +3,6 @@ import axios from "axios"
 import { jwtDecode } from "jwt-decode"
 
 const API_URL = "http://localhost:5000/api"
-const API_URL3 = "http://localhost:5000/api/admin"
-const API_URL4 = "http://localhost:5000/api/courses"
-const API_URL5 = "http://localhost:5000/api/course-assignments"
-const API_URL6 = "http://localhost:5000/api/employees"
-const API_URL8 = "http://localhost:5000/api/assessments"
-const API_URL9 = "http://localhost:5000/api/feedbacks"
 
 export const registerUser = async (userData) => {
   try {
@@ -144,16 +138,7 @@ export const getAssessmentsByCourseId = async (courseId) => {
     throw error;
   }
 };
-
-// export const getAllRequests = async () => {
-//   try {
-//     const response = await axiosInstance.get(`${API_URL3}/getAllRequests`)
-//     console.log("Response Data\n", response.data)
-//     return response.data
-//   } catch (error) {
-//     throw error
-//   }
-// }  
+ 
 
 export const getRequests = async () => {
   try {
@@ -213,7 +198,7 @@ export const deleteRequest = async (requestId) => {
 
 export const getAllCourses = async () => {
   try {
-    const response = await axiosInstance.get(`${API_URL3}/courses`)
+    const response = await axiosInstance.get(`${API_URL}/admin/courses`)
     console.log("Response Data\n", response.data)
     return response.data
   } catch (error) {
@@ -257,7 +242,7 @@ export const createCourse = async (requestId, formData, pdfFile) => {
       pdfLink: pdfLink || formData.pdfLink // Use uploaded pdfLink or passed pdfLink
     };
 
-    const response = await axiosInstance.post(`${API_URL4}/create/${requestId}`, courseData, {
+    const response = await axiosInstance.post(`${API_URL}/courses/create/${requestId}`, courseData, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`, // Include auth token if necessary
       },
@@ -273,7 +258,7 @@ export const createCourse = async (requestId, formData, pdfFile) => {
 
 export const editCourse = async (courseId, formData) => {
   try {
-    const response = await axiosInstance.put(`${API_URL4}/edit/${courseId}`, formData)
+    const response = await axiosInstance.put(`${API_URL}/courses/edit/${courseId}`, formData)
     console.log("Response Data\n", response.data)
     return response
   } catch (error) {
@@ -496,27 +481,6 @@ export const getAdminCourseStats = async () => {
   }
 } // used in CourseStats.jsx
 
-// Employee related API endpoints
-export const getAssignments = async () => {
-  try {
-    const response = await axiosInstance.get(`${API_URL6}/getAssignments`)
-    console.log("Response Data\n", response.data)
-    return response.data
-  } catch (error) {
-    throw error
-  }
-}
-
-export const getAllAssessments = async () => {
-  try {
-    const response = await axiosInstance.get(`${API_URL8}/getAllAssessments`)
-    console.log("Response Data\n", response.data)
-    return response
-  } catch (error) {
-    throw error
-  }
-}
-
 
 export const getAllEmployeesAdmin = async () => {
   try {
@@ -528,44 +492,6 @@ export const getAllEmployeesAdmin = async () => {
   }
 }
 
-
-export const changeAssignment = async (progressId, courseId) => {
-  try {
-    const response = await axiosInstance.put(`${API_URL5}/${progressId}/${courseId}`)
-    console.log("Response Data\n", response.data)
-    return response.data
-  } catch (error) {
-    throw error
-  }
-}
-
-
-
-
-
-
-
-export const getEmployeeAssessments = async () => {
-  try {
-    const response = await axiosInstance.get(`${API_URL6}/get-employee-assessments`)
-    console.log("Response Data\n", response.data)
-    return response.data
-  } catch (error) {
-    throw error
-  }
-}
-
-
-
-export const getAllFeedbacks = async () => {
-  try {
-    const response = await axiosInstance.get(`${API_URL9}`)
-    console.log("Response Data\n", response.data)
-    return response.data
-  } catch (error) {
-    throw error
-  }
-}
 
 export const logout = () => {
   localStorage.removeItem("token")

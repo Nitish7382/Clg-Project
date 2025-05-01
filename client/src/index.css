@@ -13,6 +13,6 @@
 @import "tailwindcss";
 
 .card {
-    @apply p-4 bg-white/20 backdrop-blur-sm rounded-md shadow-md transition-transform transform hover:-translate-y-1 hover:backdrop-blur-3xl hover:bg-white/30 hover:shadow-xl cursor-pointer;
+    @apply p-4 bg-sky-100 backdrop-blur-sm rounded-md shadow-md transition-transform transform hover:-translate-y-1 hover:backdrop-blur-3xl hover:bg-sky-200 hover:shadow-xl cursor-pointer;
   }
   

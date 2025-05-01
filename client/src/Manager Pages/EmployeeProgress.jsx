@@ -10,8 +10,16 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
-const COLORS_PROGRESS = ['#34D399', '#F59E0B'] // Green for Completed, Amber for In Progress
-const COLORS_RATINGS = ['#10B981', '#3B82F6', '#F59E0B', '#F97316', '#EF4444'] // Distinct colors for ratings
+const COLORS_PROGRESS = ['#14b8a6', '#f97316'] // Teal for Completed, Orange for In Progress
+
+const COLORS_RATINGS = [
+  '#ef4444', // 1 Star - Red
+  '#f97316', // 2 Stars - Orange
+  '#eab308', // 3 Stars - Yellow
+  '#22c55e', // 4 Stars - Green
+  '#3b82f6', // 5 Stars - Blue
+]
+
 
 const EmployeeProgress = () => {
   const [progressData, setProgressData] = useState([])
@@ -43,7 +51,6 @@ const EmployeeProgress = () => {
     },
   ]
 
-  // Prepare rating distribution data
   const ratingData = [1, 2, 3, 4, 5].map((rating) => ({
     name: `${rating} Stars`,
     value: progressData.filter((entry) => entry.rating?.rating === rating).length,
@@ -54,14 +61,13 @@ const EmployeeProgress = () => {
   return (
     <div>
       <ManagerNavbar />
-      <div className="p-6 min-h-screen bg-gray-800 text-white">
-        <h2 className="text-2xl font-semibold mb-6">Employee Course Progress</h2>
+      <div className="p-6 min-h-screen bg-white text-gray-800">
+        <h2 className="text-2xl font-semibold mb-6 text-sky-700">Employee Course Progress</h2>
 
-        {/* Section with Two Pie Charts Side by Side */}
         <div className="lg:flex lg:gap-8 mb-6">
-          {/* Progress Overview Pie Chart */}
-          <div className="bg-gray-700 p-6 rounded-lg shadow-lg w-full lg:w-1/2 mb-6 lg:mb-0">
-            <h3 className="text-xl font-semibold mb-4">Completion Overview</h3>
+          {/* Completion Pie Chart */}
+          <div className="bg-sky-50 border border-sky-200 p-6 rounded-lg shadow w-full lg:w-1/2 mb-6 lg:mb-0">
+            <h3 className="text-xl font-semibold text-sky-700 mb-4">Completion Overview</h3>
             <ResponsiveContainer width="100%" height={350}>
               <PieChart>
                 <Pie
@@ -72,7 +78,6 @@ const EmployeeProgress = () => {
                   cy="50%"
                   outerRadius={120}
                   innerRadius={80}
-                  fill="#8884d8"
                   label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                 >
                   {pieData.map((_, index) => (
@@ -85,9 +90,9 @@ const EmployeeProgress = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* Employee Ratings Pie Chart */}
-          <div className="bg-gray-700 p-6 rounded-lg shadow-lg w-full lg:w-1/2">
-            <h3 className="text-xl font-semibold mb-4">Employee Ratings</h3>
+          {/* Ratings Pie Chart */}
+          <div className="bg-sky-50 border border-sky-200 p-6 rounded-lg shadow w-full lg:w-1/2">
+            <h3 className="text-xl font-semibold text-sky-700 mb-4">Employee Ratings</h3>
             <ResponsiveContainer width="100%" height={350}>
               <PieChart>
                 <Pie
@@ -98,7 +103,6 @@ const EmployeeProgress = () => {
                   cy="50%"
                   outerRadius={120}
                   innerRadius={80}
-                  fill="#8884d8"
                   label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                 >
                   {ratingData.map((_, index) => (
@@ -112,10 +116,10 @@ const EmployeeProgress = () => {
           </div>
         </div>
 
-        {/* Table Section */}
+        {/* Progress Table */}
         <div className="overflow-x-auto mt-6">
-          <table className="min-w-full text-sm bg-gray-700 rounded-lg overflow-hidden">
-            <thead className="bg-gray-600 text-white">
+          <table className="min-w-full text-sm bg-white border border-sky-200 rounded-lg overflow-hidden">
+            <thead className="bg-sky-100 text-sky-800">
               <tr>
                 <th className="p-3 text-left">Course</th>
                 <th className="p-3 text-left">Employee</th>
@@ -128,12 +132,12 @@ const EmployeeProgress = () => {
             </thead>
             <tbody>
               {progressData.map((entry, index) => (
-                <tr key={index} className="border-b border-gray-600 hover:bg-gray-600">
+                <tr key={index} className="border-b border-sky-100 hover:bg-sky-50">
                   <td className="p-3">{entry.course.title}</td>
                   <td className="p-3">{entry.employee.Name} ({entry.employee.Designation})</td>
                   <td className="p-3">{entry.employee.email}</td>
                   <td className="p-3">{entry.progress}%</td>
-                  <td className={`p-3 ${entry.isCompleted ? 'text-green-500' : 'text-yellow-500'}`}>
+                  <td className={`p-3 font-medium ${entry.isCompleted ? 'text-green-600' : 'text-yellow-600'}`}>
                     {entry.isCompleted ? 'Completed' : 'In Progress'}
                   </td>
                   <td className="p-3">
