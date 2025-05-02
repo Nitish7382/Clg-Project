@@ -24,6 +24,40 @@ function SignUp() {
 
   const navigator = useNavigate();
 
+  const designationOptions = [
+    "Software Engineer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "QA Engineer",
+    "UI/UX Designer",
+    "Data Analyst",
+    "Machine Learning Engineer",
+    "DevOps Engineer",
+    "Technical Lead",
+    "Project Manager",
+    "Product Manager",
+    "Scrum Master",
+    "HR Executive",
+    "Business Analyst",
+    "System Administrator",
+    "Support Engineer",
+    "Intern",
+    "Team Lead",
+    "Director of Engineering",
+    "Admin Executive",
+    "Office Manager",
+    "Operations Manager",
+    "Administrative Assistant",
+    "Executive Assistant",
+    "Facilities Manager",
+    "Compliance Officer",
+    "Chief Operating Officer (COO)",
+    "Administrative Coordinator"
+  ];
+  
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -57,7 +91,8 @@ function SignUp() {
       }
     } catch (error) {
       console.log("Error details:", error);
-      const errorMessage = error.response?.data?.message || error.message || "Registration failed";
+      const errorMessage =
+        error.response?.data?.message || error.message || "Registration failed";
       toast.error(errorMessage, { autoClose: 2000 });
     }
   };
@@ -88,13 +123,19 @@ function SignUp() {
             onChange={(e) => setAccountName(e.target.value)}
             className="px-4 py-2 rounded-full border border-white bg-white/90 focus:outline-none"
           />
-          <input
-            type="text"
-            placeholder="Designation"
+          <select
             value={designation}
             onChange={(e) => setDesignation(e.target.value)}
             className="px-4 py-2 rounded-full border border-white bg-white/90 focus:outline-none"
-          />
+          >
+            <option value="">--Select Designation--</option>
+            {designationOptions.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+
           <input
             type="text"
             placeholder="Username"
@@ -182,11 +223,7 @@ function SignUp() {
           </p>
         </div>
 
-        {message && (
-          <p className="mt-4 text-center text-white">
-            {message}
-          </p>
-        )}
+        {message && <p className="mt-4 text-center text-white">{message}</p>}
       </div>
 
       <ToastContainer position="top-right" autoClose={3000} />

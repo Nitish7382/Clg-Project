@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { createAssessmet } from '../Api';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import { createAssessmet } from "../Api";
 
 const CreateAssessments = () => {
   const [totalMarks, setTotalMarks] = useState(0);
@@ -10,13 +10,13 @@ const CreateAssessments = () => {
   const [formQuestions, setFormQuestions] = useState([]);
 
   const location = useLocation();
-  const { courseId } = location.state || {};  // Get courseId from state
+  const { courseId } = location.state || {}; // Get courseId from state
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!courseId) {
       Swal.fire("Error!", "Course information not found!", "error");
-      navigate('/courselist');  // Navigate back to course list if courseId is missing
+      navigate("/courselist"); // Navigate back to course list if courseId is missing
     }
   }, [courseId, navigate]);
 
@@ -24,11 +24,13 @@ const CreateAssessments = () => {
     const value = parseInt(e.target.value, 10);
     setTotalQuestions(value);
 
-    const initialQuestions = Array(value).fill(null).map(() => ({
-      questionText: '',
-      options: Array(4).fill(''),
-      correctAnswer: 0,
-    }));
+    const initialQuestions = Array(value)
+      .fill(null)
+      .map(() => ({
+        questionText: "",
+        options: Array(4).fill(""),
+        correctAnswer: 0,
+      }));
     setFormQuestions(initialQuestions);
   };
 
@@ -61,7 +63,11 @@ const CreateAssessments = () => {
     );
 
     if (!isValid) {
-      Swal.fire("Validation Error", "Please fill out all questions and options.", "warning");
+      Swal.fire(
+        "Validation Error",
+        "Please fill out all questions and options.",
+        "warning"
+      );
       return;
     }
 
@@ -77,65 +83,74 @@ const CreateAssessments = () => {
     };
 
     try {
-      await createAssessmet(courseId, payload);  // Pass courseId to the API
+      await createAssessmet(courseId, payload); // Pass courseId to the API
       Swal.fire("Success!", "Assessment created successfully!", "success");
-      navigate('/courselist');
+      navigate("/courselist");
     } catch (error) {
       console.error("Error creating assessment:", error);
-      Swal.fire("Error!", "Failed to create assessment. Please try again.", "error");
+      Swal.fire(
+        "Error!",
+        "Failed to create assessment. Please try again.",
+        "error"
+      );
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Create Assessment</h1>
+    <div className="min-h-screen bg-gray-900 p-6 text-white">
+      <div className="max-w-5xl mx-auto bg-gray-800 p-6 rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-4">Create Assessment</h1>
 
         {/* Number of Questions */}
         <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Number of Questions</label>
+          <label className="block font-medium mb-2">Number of Questions</label>
           <input
             type="number"
             value={totalQuestions}
             onChange={handleSetTotalQuestions}
             min="1"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-white"
           />
         </div>
 
         {/* Total Marks */}
         <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Total Marks</label>
+          <label className="block font-medium mb-2">Total Marks</label>
           <input
             type="number"
             value={totalMarks}
             onChange={(e) => setTotalMarks(e.target.value)}
             min="1"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-white"
           />
         </div>
 
         {/* Passing Marks */}
         <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Passing Marks</label>
+          <label className="block font-medium mb-2">Passing Marks</label>
           <input
             type="number"
             value={passingMarks}
             onChange={(e) => setPassingMarks(e.target.value)}
             min="1"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-white"
           />
         </div>
 
         {/* Questions */}
         {formQuestions.map((question, qIndex) => (
-          <div key={qIndex} className="mb-6 p-4 border bg-gray-50 rounded">
-            <h3 className="font-semibold text-lg mb-2">Question {qIndex + 1}</h3>
+          <div
+            key={qIndex}
+            className="mb-6 p-4 border border-gray-600 bg-gray-700 rounded"
+          >
+            <h3 className="font-semibold text-lg mb-2">
+              Question {qIndex + 1}
+            </h3>
             <input
               type="text"
               value={question.questionText}
               onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
-              className="w-full p-2 border rounded mb-3"
+              className="w-full p-2 border border-gray-600 rounded bg-gray-800 text-white mb-3"
               placeholder="Enter the question"
             />
 
@@ -143,12 +158,14 @@ const CreateAssessments = () => {
             <div className="space-y-3">
               {question.options.map((option, optIndex) => (
                 <div key={optIndex} className="flex items-center gap-3">
-                  <label className="w-24 text-gray-700">Option {optIndex + 1}</label>
+                  <label className="w-24">Option {optIndex + 1}</label>
                   <input
                     type="text"
                     value={option}
-                    onChange={(e) => handleOptionChange(qIndex, optIndex, e.target.value)}
-                    className="flex-grow p-2 border rounded"
+                    onChange={(e) =>
+                      handleOptionChange(qIndex, optIndex, e.target.value)
+                    }
+                    className="flex-grow p-2 border border-gray-600 rounded bg-gray-800 text-white"
                     placeholder={`Enter option ${optIndex + 1}`}
                   />
                 </div>
@@ -157,11 +174,13 @@ const CreateAssessments = () => {
 
             {/* Correct Answer Index */}
             <div className="mt-4">
-              <label className="block font-medium text-gray-700 mb-2">Correct Option</label>
+              <label className="block font-medium mb-2">Correct Option</label>
               <select
                 value={question.correctAnswer}
-                onChange={(e) => handleCorrectAnswerChange(qIndex, e.target.value)}
-                className="w-full p-2 border rounded"
+                onChange={(e) =>
+                  handleCorrectAnswerChange(qIndex, e.target.value)
+                }
+                className="w-full p-2 border border-gray-600 rounded bg-gray-800 text-white"
               >
                 {question.options.map((opt, i) => (
                   <option key={i} value={i}>
