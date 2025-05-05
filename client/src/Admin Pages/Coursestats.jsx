@@ -57,14 +57,14 @@ const Coursestats = () => {
   ];
 
   return (
-    <div className="container mx-auto bg-gray-900 text-white">
+    <div className="min-w-full mx-auto bg-gray-900 text-white">
       <AdminNavbar />
       <h1 className="text-3xl font-bold text-center text-purple-400 mb-8">
         Course Stats
       </h1>
 
       {/* Charts Section */}
-      <div className="flex flex-col lg:flex-row gap-8 mb-8">
+      <div className="flex flex-col lg:flex-row gap-8 mb-8 p-6">
         {/* Pie Chart */}
         <div className="flex-1 bg-gray-800 shadow-md rounded-lg p-6">
           <h2 className="text-xl font-semibold text-purple-400 mb-4">
@@ -132,7 +132,7 @@ const Coursestats = () => {
       </div>
 
       {/* Course Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
         {courses.map((course) => (
           <div
             key={course._id}

@@ -179,7 +179,7 @@ function Admin() {
             <h3 className="text-xl font-semibold mb-4 text-yellow-400">
               Pending Requests
             </h3>
-            <div className="overflow-y-auto max-h-[12rem]">
+            <div className="overflow-y-auto max-h-[16rem]">
               <table className="w-full text-left text-white">
                 <thead className="sticky top-0 bg-[#1f2937] z-10">
                   {" "}
@@ -235,7 +235,7 @@ function Admin() {
             <h3 className="text-xl font-semibold mb-4 text-green-400">
               Completed Requests
             </h3>
-            <div className="overflow-y-auto max-h-[15rem]">
+            <div className="overflow-y-auto max-h-[16rem]">
               <table className="w-full text-left text-white">
                 <thead className="sticky top-0 bg-[#1f2937] z-10">
                   <tr className="bg-white/20">
